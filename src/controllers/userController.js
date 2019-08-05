@@ -125,5 +125,19 @@ downgrade(req, res, next) {
   wikiQueries.changeToPublic(req.user.dataValues.id);
   req.flash("notice", "You are no longer a premium user!");
   res.redirect("/");
+},
+
+showCollaborators(req, res, next) {
+  userQueries.getUserCollaborators(req.user.id, (err, result) => {
+    const collaborator = result.collaborator;
+    const user = result.user;
+
+      if (err) {
+        console.log("There was an error: ", err)
+          res.redirect(404, "/");
+      } else {
+          res.render("users/collaborators", { user, collaborator });
+      }
+  });
 }
 };
