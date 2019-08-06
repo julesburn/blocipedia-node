@@ -31,7 +31,7 @@
 
     <ul class="list-group">
         <% wikis.forEach((wiki) => { if(currentUser && currentUser.role
-        != "standard" && wiki.private == true && currentUser.id == wiki.userId){
+        != "standard" && wiki.private == true && (currentUser.id == wiki.userId) || currentUser.id in wikiCollaborators[wiki.id]){
         %>
         <li class="list-group-item">
             <a href="/wikis/<%= wiki.id %>"> <%= wiki.title %> </a>
