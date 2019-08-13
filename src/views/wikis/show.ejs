@@ -17,9 +17,9 @@
         </h1>
         <hr/>
 
-        <% if (currentUser && (currentUser.isAdmin() || (currentUser.isPremium() && currentUser.id === wiki.userId)) ) { %>
+        <%# if (currentUser && (currentUser.id === wiki.userId || currentUser.isAdmin()))  { %>
           <a class="btn btn-info" href="/wikis/<%= wiki.id %>/collaborators/edit">Edit Collaborators</a>
-        <% } %>
+        <%# } %>
 
 
         <%# if (currentUser && (currentUser.id === wiki.userId || currentUser.isAdmin()))  { %>

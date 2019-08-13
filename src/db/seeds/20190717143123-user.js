@@ -9,7 +9,7 @@ let users = [];
      email: faker.internet.email(),
      password: faker.internet.password(),
      name: faker.internet.userName(),
-     role: "standard",
+     role: 0,
      createdAt: new Date(),
      updatedAt: new Date()
    });

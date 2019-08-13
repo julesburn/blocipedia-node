@@ -128,17 +128,13 @@ downgrade(req, res, next) {
 },
 
 showCollaborators(req, res, next) {
-  console.log(req);
-  console.log("showing collaborators");
   userQueries.getUserCollaborators(req.user.id, (err, result) => {
     const collaborator = result.collaborator;
     const user = result.user;
-    console.log(result);
       if (err || result == null) {
         console.log(err);
           res.redirect(404, "/");
       } else {
-        console.log("rendering view");
           res.render("users/collaborators", { user, collaborator });
       }
   });

@@ -52,7 +52,7 @@ upgradeUser(id, callback) {
   User.findByPk(id)
       .then(user => {
           user.update({
-              role: "premium"
+              role: 1
           });
           callback(null, user);
       })
@@ -65,7 +65,7 @@ downgradeUser(id, callback) {
   User.findByPk(id)
       .then(user => {
           user.update({
-              role: "standard"
+              role: 0
           });
           callback(null, user);
       })
