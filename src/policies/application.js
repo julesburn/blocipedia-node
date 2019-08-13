@@ -40,6 +40,10 @@ module.exports = class ApplicationPolicy {
       );
   }
 
+  showCollaborators(){
+    return this.edit();
+}
+
   update() {
       return this.edit();
   }

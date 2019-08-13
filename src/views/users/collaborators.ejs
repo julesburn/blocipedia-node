@@ -12,16 +12,21 @@
 
         <h1>Collaborators</h1>
 
-        <% if(collaborator.length !== 0) { %>
+        <% } %>
+        <% if(collaborators) { %>
           <p>
-          <ul class ="list-group">
-            <% collaborator.forEach((collaborator) => {  %>
+            <ul class ="list-group">
+              <% collaborators.forEach((collaborator) => {  %>
                 <li class="list-group-item">
-                      <a href="/wikis/<%= collaborator.Wiki.id %>"><%= collaborator.Wiki.title %></a>
-               </li>
-            <% }) %>
-          </ul>
-        </p>
+                  <%= collaborator.User.name %>
+                  <% if(currentUser && (currentUser.role === "premium" || currentUser.role === "admin")) { %>
+                  <% } %>
+                  </li>
+                  <% }) %>
+            </ul>
+          </p>
+          <% } %>
+          <% } %>
         <% } else { %>
             <h1>No collaborations found</h1>
         <% } %>
