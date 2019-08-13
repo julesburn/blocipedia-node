@@ -143,4 +143,4 @@ showCollaborators(req, res, next) {
       }
   });
 }
-}
+};

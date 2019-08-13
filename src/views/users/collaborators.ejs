@@ -5,33 +5,19 @@
   </head>
   <body>
     <% include ../static/partials/navbar.ejs %>
-
     <main class="container">
-
-      <% include ../static/partials/messages.ejs %>
-
         <h1>Collaborators</h1>
-
-        <% } %>
-        <% if(collaborators) { %>
-          <p>
-            <ul class ="list-group">
-              <% collaborators.forEach((collaborator) => {  %>
+        <% if(!collaborator.length == 0) { %>
+          <ul class="list-group">
+            <% collaborator.forEach((collaborators) => {  %>
                 <li class="list-group-item">
-                  <%= collaborator.User.name %>
-                  <% if(currentUser && (currentUser.role === "premium" || currentUser.role === "admin")) { %>
-                  <% } %>
-                  </li>
-                  <% }) %>
-            </ul>
-          </p>
-          <% } %>
-          <% } %>
+                    <a href="/wikis/<%= collaborators.Wiki.id %>"><%= collaborators.Wiki.title %></a>
+               </li>
+            <% }) %>
+          </ul>
         <% } else { %>
-            <h1>No collaborations found</h1>
+          <label>You are not a collaborator on any wikis</label>
         <% } %>
-
     </main>
-
   </body>
 </html>
