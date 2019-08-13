@@ -1,7 +1,10 @@
-require("dotenv").config();
-const User = require("./models").User;
-const bcrypt = require("bcryptjs");
 
+const User = require("./models").User;
+const Wiki = require("./models").Wiki;
+const Collaborator = require("./models").Collaborator;
+const wikiQueries = require("./queries.wikis.js");
+
+const bcrypt = require("bcryptjs");
 const sgMail = require("@sendgrid/mail");
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
@@ -49,7 +52,7 @@ upgradeUser(id, callback) {
   User.findByPk(id)
       .then(user => {
           user.update({
-              role: "premium"
+              role: 1
           });
           callback(null, user);
       })
@@ -62,7 +65,7 @@ downgradeUser(id, callback) {
   User.findByPk(id)
       .then(user => {
           user.update({
-              role: "standard"
+              role: 0
           });
           callback(null, user);
       })
@@ -83,6 +86,26 @@ downgradeUser(id, callback) {
 		return true;
 	}
    })
+},
+
+getUserCollaborators(id, callback) {
+  let result = {};
+  User.findByPk(id).then(user => {
+    if (!user) {
+      callback(404);
+    } else {
+      result["user"] = user;
+      Collaborator.scope({ method: ["collaboratorFor", id] })
+      .findAll()
+      .then(collaborator => {
+        result["collaborator"] = collaborator;
+        callback(null, result);
+      })
+      .catch(err => {
+        callback(err);
+      });
+    }
+  });
 }
    
 };

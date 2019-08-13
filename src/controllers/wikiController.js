@@ -1,18 +1,20 @@
 const wikiQueries = require("../db/queries.wikis.js");
+const collaboratorQueries = require("../db/queries.collaborators.js");
 const Authorizer = require("../policies/wiki");
 const markdown = require("markdown").markdown;
 
 module.exports = {
 
-  index(req, res, next) {
-      wikiQueries.getAllWikis((err, wikis) => {
-          if (err) {
-              res.redirect(500, "static/index");
-          } else {
-              res.render("wikis/index", { wikis });
-          }
-      });
-  },
+    index(req, res, next) {
+        wikiQueries.getAllWikis((err, wikis) => {
+            if (err) {
+                res.redirect(500, "static/index");
+            } else {
+                res.render("wikis/index", { wikis });
+            }
+        });
+    },
+
   new(req, res, next) {
       const authorized = new Authorizer(req.user).new();
 

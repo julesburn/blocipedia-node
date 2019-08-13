@@ -15,18 +15,23 @@
         <a href="/users/signin">Sign In</a> or
         <a href="/users/signup">Sign Up</a> to create a Wiki
     </p>
-    <% } else if (currentUser && currentUser.role == "premium") { %>
+    <% } else if (currentUser && currentUser.role == 1) { %>
     <a href="/wikis/new" class="btn btn-success">New Public Wiki</a>
     <a href="/wikis/newPrivate" class="btn btn-success">New Private Wiki</a>
 
     <h2>Private Wikis</h2>
-    <% } else if (currentUser && currentUser.role == "standard") { %>
+    <% } else if (currentUser && currentUser.role == 0) { %>
     <a href="/wikis/new" class="btn btn-success">New Public Wiki</a>
+    <a
+    href="/users/<%= currentUser.id %>/upgradeForm"
+    class="btn btn-primary"
+    >Upgrade to Create Private Wikis</a
+>
     <% } %>
 
     <ul class="list-group">
         <% wikis.forEach((wiki) => { if(currentUser && currentUser.role
-        != "standard" && wiki.private == true && currentUser.id == wiki.userId){
+        != 0 && wiki.private == true && (currentUser.id == wiki.userId)){
         %>
         <li class="list-group-item">
             <a href="/wikis/<%= wiki.id %>"> <%= wiki.title %> </a>

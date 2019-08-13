@@ -27,33 +27,29 @@ module.exports = (sequelize, DataTypes) => {
     role: {
       type: DataTypes.STRING,
       allowNull: false,
-      defaultValue: "standard"
+      defaultValue: 0
     }
 
   }, {});
   
   User.associate = function(models) {
     User.hasMany(models.Wiki, {
-      foreignKey: "userId",
+      foreignKey:"userId",
       as: "wikis"
+    })
+    User.hasMany(models.Collaborator, {
+      foreignKey: "userId",
+      as: "collaborators"
     });
-
-    User.prototype.isAdmin = function() {
-      return this.role === "admin";
-    };
-
-    User.prototype.isPremium = function() {
-      return this.role === "premium";
-    };
-
-    User.prototype.isOwner = function() {
-      return this.role === "owner";
-    };
-
-    User.prototype.isStandard = function() {
-      return this.role === "standard";
-    };
+    User.prototype.isAdmin = () => {
+      return this.role == 2;
+    }
+    User.prototype.isPremium = () => {
+      return this.role == 1;
+    }
+    User.prototype.isMember = () => {
+      return this.role == 0;
+    }
   };
-
   return User;
 };

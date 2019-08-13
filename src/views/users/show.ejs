@@ -20,7 +20,7 @@
         <main class="container">
             <% include ../static/partials/messages.ejs %>
 
-            <% if (currentUser.role == "standard" || currentUser.role == null) { %>
+            <% if (currentUser.role == 0 || currentUser.role == null) { %>
             <p>
                 You have a <strong>Standard Account</strong>. Click the button
                 below for access to private wikis.
@@ -30,7 +30,7 @@
                 class="btn btn-primary btn-lg"
                 >Upgrade</a
             >
-            <% } if (currentUser.role == "premium") { %>
+            <% } if (currentUser.role == 1) { %>
             <p>
                 You have a <strong>Premium Account</strong>. Downgrade at any
                 time by clicking below.
@@ -40,7 +40,7 @@
                 class="btn btn-primary btn-lg"
                 >Downgrade</a
             >
-            <% } if (currentUser.role == "admin") { %>
+            <% } if (currentUser.role == 2) { %>
             <p>You are an <strong>Administrator</strong>.</p>
             <% } %>
         </main>
